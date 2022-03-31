@@ -44,7 +44,7 @@ import { NetworkInfo, TxResult } from '@terra-money/use-wallet';
 import big, { BigSource } from 'big.js';
 import { Observable } from 'rxjs';
 
-export function earnWithdrawTx($: {
+export function earnWithdrawAllTx($: {
   walletAddr: HumanAddr;
   aUstTokenAddr: CW20Addr;
   withdrawAmount: aUST;
@@ -60,6 +60,7 @@ export function earnWithdrawTx($: {
   onTxSucceed?: () => void;
 }): Observable<TxResultRendering> {
   const helper = new TxHelper($);
+  console.log(formatTokenInput($.withdrawAmount));
 
   return pipe(
     _createTxOptions({
@@ -69,7 +70,7 @@ export function earnWithdrawTx($: {
             contract: $.marketAddr,
             amount: formatTokenInput($.withdrawAmount),
             msg: createHookMsg({
-              redeem_stable: {},
+              redeem_all_stable: {},
             }),
           },
         }),

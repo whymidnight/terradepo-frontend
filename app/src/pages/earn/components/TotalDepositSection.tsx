@@ -1,6 +1,4 @@
 import React, { useCallback, useMemo } from 'react';
-import { computeTotalDeposit } from '@anchor-protocol/app-fns';
-import { useEarnEpochStatesQuery } from '@anchor-protocol/app-provider';
 import {
   formatUST,
   formatUSTWithPostfixUnits,
@@ -35,16 +33,14 @@ export function TotalDepositSection({ className }: TotalDepositSectionProps) {
   // ---------------------------------------------
   const { uUST, uaUST } = useBalances();
 
-  const { data: { moneyMarketEpochState } = {} } = useEarnEpochStatesQuery();
-
   // ---------------------------------------------
   // computes
   // ---------------------------------------------
   const { totalDeposit } = useMemo(() => {
     return {
-      totalDeposit: computeTotalDeposit(uaUST, moneyMarketEpochState),
+      totalDeposit: Big(uaUST),
     };
-  }, [moneyMarketEpochState, uaUST]);
+  }, [uaUST]);
 
   // ---------------------------------------------
   // dialogs
@@ -92,13 +88,13 @@ export function TotalDepositSection({ className }: TotalDepositSectionProps) {
 
       <aside className="total-deposit-buttons">
         <ActionButton
-          disabled={!connected || !moneyMarketEpochState || Big(uUST).lte(0)}
+          disabled={!connected || Big(uUST).lte(0)}
           onClick={openDeposit}
         >
           Deposit
         </ActionButton>
         <BorderButton
-          disabled={!connected || !moneyMarketEpochState || Big(uaUST).lte(0)}
+          disabled={!connected || Big(uaUST).lte(0)}
           onClick={openWithdraw}
         >
           Withdraw

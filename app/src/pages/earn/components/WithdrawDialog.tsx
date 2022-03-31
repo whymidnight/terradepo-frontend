@@ -1,8 +1,4 @@
-import { computeTotalDeposit } from '@anchor-protocol/app-fns';
-import {
-  useEarnEpochStatesQuery,
-  EarnWithdrawFormReturn,
-} from '@anchor-protocol/app-provider';
+import { EarnWithdrawFormReturn } from '@anchor-protocol/app-provider';
 import {
   UST_INPUT_MAXIMUM_DECIMAL_POINTS,
   UST_INPUT_MAXIMUM_INTEGER_POINTS,
@@ -64,13 +60,12 @@ function WithdrawDialogBase(props: WithdrawDialogProps) {
     ust: { formatOutput, formatInput, demicrofy, symbol },
   } = useFormatters();
 
-  const { data } = useEarnEpochStatesQuery();
-
   const { totalDeposit } = useMemo(() => {
+    console.log(uaUST);
     return {
-      totalDeposit: computeTotalDeposit(uaUST, data?.moneyMarketEpochState),
+      totalDeposit: big(uaUST),
     };
-  }, [data?.moneyMarketEpochState, uaUST]);
+  }, [uaUST]);
 
   const renderBroadcastTx = useMemo(() => {
     if (renderBroadcastTxResult) {

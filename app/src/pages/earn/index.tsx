@@ -5,9 +5,7 @@ import { fixHMR } from 'fix-hmr';
 import React from 'react';
 import styled from 'styled-components';
 import { BuyUstButton } from './components/BuyUstButton';
-import { ExpectedInterestSection } from './components/ExpectedInterestSection';
 import { InsuranceCoverageButton } from './components/InsuranceCoverageButton';
-import { InterestSection } from './components/InterestSection';
 import { TotalDepositSection } from './components/TotalDepositSection';
 
 export interface EarnProps {
@@ -26,8 +24,6 @@ function Component({ className }: EarnProps) {
       </FlexTitleContainer>
       <section className="grid">
         <TotalDepositSection className="total-deposit" />
-        <InterestSection className="interest" />
-        <ExpectedInterestSection className="expected-interest" />
       </section>
     </PaddedLayout>
   );
